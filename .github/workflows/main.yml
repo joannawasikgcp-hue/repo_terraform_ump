@@ -43,7 +43,7 @@ jobs:
         with:
           workload_identity_provider: 'projects/803770291613/locations/europe-central2/workloadIdentityPools/git-hub-pool/providers/github-provider'
           service_account: 'terraform-admin@admin-project-498213.iam.gserviceaccount.com'
-          #audience: "https://iam.googleapis.com/projects/803770291613/locations/global/workloadIdentityPools/git-hub/providers/github-provider"
+          audience: "https://iam.googleapis.com/projects/803770291613/locations/global/workloadIdentityPools/git-hub/providers/github-provider"
 
       # 4. KLUCZOWY KROK: Uruchomienie Terraform Init
       - name: Terraform Init
