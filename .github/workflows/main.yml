@@ -41,7 +41,7 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: 'projects/803770291613/locations/global/workloadIdentityPools/git-hub-pool/providers/git-hub-provider'
+          workload_identity_provider: 'projects/803770291613/locations/europe-central2/workloadIdentityPools/git-hub-pool/providers/git-hub-provider'
           service_account: 'git-hub@admin-project-498213.iam.gserviceaccount.com'
 
       # 4. KLUCZOWY KROK: Uruchomienie Terraform Init
