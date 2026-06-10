@@ -13,7 +13,7 @@ permissions:
   id-token: write
 
 jobs:
-  terraform:
+  terraform-plan:
     name: "Terraform Lint & Init"
     runs-on: ubuntu-latest
 
@@ -48,3 +48,53 @@ jobs:
       # 4. KLUCZOWY KROK: Uruchomienie Terraform Init
       - name: Terraform Init
         run: terraform init
+
+      # 5. Uruchomienie Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      # Zapisuje plik planu jako artefakt — potrzebny w jobie apply
+      - name: Upload Plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: ./project/gom/prod/pmo_projects/UMP/tfplan
+  
+  terraform-apply:
+    name: "Terraform Apply"
+    runs-on: ubuntu-latest
+    needs: terraform-plan        # czeka na zakończenie planu
+    environment: production      # <-- tutaj zatrzymuje się i czeka na akceptację
+    # apply tylko przy push na main, nie przy PR
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    defaults:
+      run:
+        working-directory: ./project/gom/prod/pmo_projects/UMP
+
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.8.0"
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/803770291613/locations/global/workloadIdentityPools/git-hub/providers/github-provider"
+          service_account: "terraform-admin@admin-project-498213.iam.gserviceaccount.com"
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Download Plan
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+          path: ./project/gom/prod/pmo_projects/UMP
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
