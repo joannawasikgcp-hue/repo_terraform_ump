@@ -105,8 +105,8 @@ gcp_projects = {
     enable_gdrive_gcs_sa = true
 
     # Definicja zasobów
-    storage_buckets = ["salestube_travelist", "salestubea_lancerto", "salestube_reserved", "salestube_olx", "salestube_prochnik"]
-    bigquery_datasets = ["travelist","lancertoa","reserved", "olx"]
+    storage_buckets = ["salestube_travelist", "salestubea_lancerto", "salestube_reserved", "salestube_olx", "salestube_prochnik","salestube_phlov"]
+    bigquery_datasets = ["travelist","lancertoa","reserved", "olx","phlov"]
     iam_roles         = {}
     repositories = {
       "basic-images" = {
