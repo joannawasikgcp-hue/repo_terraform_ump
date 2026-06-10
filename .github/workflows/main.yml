@@ -102,6 +102,3 @@ jobs:
         with:
           name: tfplan
           path: ./project/gom/prod/pmo_projects/UMP
-
-      #- name: Terraform Apply
-      #  run: terraform apply -auto-approve tfplan
