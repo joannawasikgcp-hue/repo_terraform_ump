@@ -1,0 +1,10 @@
+# Blokada .terraform w KAŻDYM podfolderze
+**/.terraform/
+.terraform/
+
+# Blokada plików stanu w KAŻDYM podfolderze
+**/*.tfstate
+**/*.tfstate.*
+
+# Logi
+crash.log
