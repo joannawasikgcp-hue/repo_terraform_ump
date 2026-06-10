@@ -44,6 +44,7 @@ jobs:
           # Dane z Twojej konfiguracji Workload Identity Pool w GCP:
           workload_identity_provider: "projects/admin-project-498213/locations/europe-central2/workloadIdentityPools/git-hub-pool/providers/github-provider"
           service_account: "terraform-admin@admin-project-498213.iam.gserviceaccount.com"
+          project_id: "admin-project-498213"
 
       # 4. KLUCZOWY KROK: Uruchomienie Terraform Init
       - name: Terraform Init
