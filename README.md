@@ -1,4 +1,4 @@
-# AI Agent Infrastructure Setup - Guide
+# AI Agent Infrastructure Setup - Practical Guide
 
 Dokument opisuje proces migracji na nowy tenant GCP oraz kroki niezbędne do przygotowania środowiska administracyjnego (`admin-project`). Wykonanie tych kroków jest warunkiem koniecznym (Prerequisites) do poprawnego uruchomienia automatyzacji Terraform, która automatycznie powoła docelową infrastrukturę pod Agenta AI.
 
