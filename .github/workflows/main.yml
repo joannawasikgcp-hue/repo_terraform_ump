@@ -7,6 +7,13 @@ on:
   pull_request:
     branches:
       - main
+  
+  workflow_dispatch:
+    inputs:
+        reason:
+          description: 'Powód ręcznego uruchomienia'
+          required: false
+          default: 'Akceptacja po weryfikacji planu'
 
 permissions:
   contents: read
@@ -96,5 +103,5 @@ jobs:
           name: tfplan
           path: ./project/gom/prod/pmo_projects/UMP
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+      #- name: Terraform Apply
+      #  run: terraform apply -auto-approve tfplan
