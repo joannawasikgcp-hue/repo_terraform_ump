@@ -1,0 +1,45 @@
+name: "Terraform Apply (manual)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Powód uruchomienia apply'
+        required: true
+        default: 'Zaakceptowany plan'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  terraform-apply:
+    name: "Terraform Apply"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./project/gom/prod/pmo_projects/UMP
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.8.0"
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "projects/803770291613/locations/global/workloadIdentityPools/git-hub/providers/github-provider"
+          service_account: "terraform-admin@admin-project-498213.iam.gserviceaccount.com"
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
