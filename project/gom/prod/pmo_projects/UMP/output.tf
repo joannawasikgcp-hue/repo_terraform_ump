@@ -1,4 +1,6 @@
-# Outptu to return dla utworzonych zasobów - to oznacza że wyświetlana jest informacja o zasobach utworzonych w ramach terraform
+# ==============================================================================
+# 1. Outptu to return dla utworzonych zasobów - to oznacza że wyświetlana jest informacja o zasobach utworzonych w ramach terraform
+# ==============================================================================
 
 output "created_projects" {
   description = "Podsumowanie utworzonych projektów GCP wraz z zasobami"
