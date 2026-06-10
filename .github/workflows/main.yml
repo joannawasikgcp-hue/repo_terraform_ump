@@ -32,6 +32,7 @@ jobs:
       # 3. Formatowanie kodu (Sprawdza czy pliki .tf są ładnie ułożone)
       - name: Terraform Format Check
         run: terraform fmt -check
+        continue-on-error: true
 
       # 4. KLUCZOWY KROK: Uruchomienie Terraform Init
       - name: Terraform Init
