@@ -34,6 +34,13 @@ jobs:
         run: terraform fmt -check
         continue-on-error: true
 
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          # Dane z Twojej konfiguracji Workload Identity Pool w GCP:
+          workload_identity_provider: "projects/admin-project-498213/locations/global/workloadIdentityPools/git-hub-pool/providers/github-provider"
+          service_account: "terraform-admin@admin-project-498213.iam.gserviceaccount.com"
+
       # 4. KLUCZOWY KROK: Uruchomienie Terraform Init
       - name: Terraform Init
         run: terraform init
