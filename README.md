@@ -36,6 +36,7 @@ gcloud services enable discoveryengine.googleapis.com --project=admin-project
 gcloud services enable aiplatform.googleapis.com --project=admin-project
 gcloud services enable sqladmin.googleapis.com --project=admin-project
 
+
 ```
 
 ### Krok 3: Konfiguracja State Backend (Cloud Storage)
