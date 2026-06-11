@@ -19,6 +19,13 @@ resource "google_project_default_service_accounts" "default_sa" {
 # 2. Aktywacja podstawowych oraz dodatkowych usług API dla projektu
 # ==============================================================================
 
+resource "google_project_service" "service_usage" {
+  project = google_project.project.project_id
+  service = "serviceusage.googleapis.com"
+
+  depends_on = [google_project.project]
+}
+
 resource "google_project_service" "services" {
   for_each = toset(var.apis_to_enable)
   project = google_project.project.project_id
@@ -137,6 +144,50 @@ module "project_artifact_registry" {
 
   gcp_project_id = google_project.project.project_id
   repositories   = var.repositories
+
+  depends_on = [google_project_service.services]
+}
+
+# ==============================================================================
+# 9. Moduł Cloud SQL - Zarządzanie Instancją Bazy Danych PostgreSQL
+# ==============================================================================
+
+module "project_cloud_sql" {
+  source   = "../cloud_sql"
+  for_each = var.cloud_sql != null ? { "instance" = var.cloud_sql } : {}
+
+  gcp_project_id = google_project.project.project_id
+
+  name             = each.value.name
+  database_version = each.value.database_version
+  region           = each.value.region
+
+  tier              = each.value.tier
+  zone              = each.value.zone
+  availability_type = each.value.availability_type
+  deletion_protection = each.value.deletion_protection
+
+  disk_type             = each.value.disk_type
+  disk_size             = each.value.disk_size
+  disk_autoresize       = each.value.disk_autoresize
+  disk_autoresize_limit = each.value.disk_autoresize_limit
+
+  ipv4_enabled       = each.value.ipv4_enabled
+  private_network    = each.value.private_network
+  allocated_ip_range = each.value.allocated_ip_range
+  external_ip_range  = each.value.external_ip_range
+
+  backup_enabled                 = each.value.backup_enabled
+  backup_start_time              = each.value.backup_start_time
+  backup_retained_backups        = each.value.backup_retained_backups
+  point_in_time_recovery_enabled = each.value.point_in_time_recovery_enabled
+
+  db_name      = each.value.db_name
+  db_charset   = each.value.db_charset
+  db_collation = each.value.db_collation
+
+  user_name     = each.value.user_name
+  #user_password = each.value.user_password
 
   depends_on = [google_project_service.services]
 }

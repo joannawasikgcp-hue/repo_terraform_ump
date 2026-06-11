@@ -20,6 +20,7 @@ module "gcp_projects_factory" {
   bigquery_datasets    = each.value.bigquery_datasets
   iam_roles            = each.value.iam_roles
   repositories         = each.value.repositories
+  cloud_sql            = each.value.cloud_sql
 
   # Dane globalne dla całego folderu UMP
   org_id               = local.org_id

@@ -63,6 +63,37 @@ variable "gcp_projects" {
       format      = string
       description = string
     }))
+    
+    # Opcjonalna konfiguracja Cloud SQL (null = projekt bez bazy danych)
+    cloud_sql = optional(object({
+      name             = string
+      database_version = optional(string, "POSTGRES_18")
+      region           = optional(string, "europe-central2")
+      tier             = optional(string, "db-perf-optimized-N-2")
+      zone             = optional(string, "europe-central2-a")
+      availability_type    = optional(string, "REGIONAL")
+      deletion_protection  = optional(bool, true)
+      disk_type            = optional(string, "PD_SSD")
+      disk_size            = optional(number, 10)
+      disk_autoresize      = optional(bool, true)
+      disk_autoresize_limit = optional(number, 0)
+      ipv4_enabled         = optional(bool, false)
+      private_network      = optional(string, null)
+      allocated_ip_range   = optional(string, null)
+      external_ip_range    = optional(string, null)
+      backup_enabled                 = optional(bool, true)
+      backup_start_time              = optional(string, "02:00")
+      backup_retained_backups        = optional(number, 30)
+      point_in_time_recovery_enabled = optional(bool, true)
+      db_name      = string
+      db_charset   = optional(string, "UTF8")
+      db_collation = optional(string, "en_US.UTF8")
+      user_name     = optional(string, "db-admin")
+      user_password = optional(string, null)
+    }), null)
+
+
+
   }))
   description = "Kompleksowa mapa obiektów definiująca pełną specyfikację techniczną i biznesową dla każdego projektu GCP, w tym infrastrukturę Cloud Storage, BigQuery oraz polityki uprawnień i kontroli kosztów."
 }

@@ -20,7 +20,9 @@ base_apis = [
 
     # --- Dane i analityka ---
 
+  "serviceusage.googleapis.com",  
   "storage.googleapis.com",
+  "sqladmin.googleapis.com",
   "bigquery.googleapis.com",
   "bigquerystorage.googleapis.com",
   "bigqueryconnection.googleapis.com",
@@ -94,6 +96,12 @@ gcp_projects = {
         description = "Repozytorium obrazów Docker uruchamianych w środowisku Cloud Run."
       }
     }
+    cloud_sql = {
+      name    = "valuemedia-postgres"
+      db_name = "valuemedia"
+      tier    = "db-perf-optimized-N-8"
+      ipv4_enabled = true
+    }
   },
 
   "salestube" = {
@@ -106,7 +114,7 @@ gcp_projects = {
 
     # Definicja zasobów
     storage_buckets = ["salestube_travelist", "salestubea_lancerto", "salestube_reserved", "salestube_olx", "salestube_prochnik","salestube_phlov"]
-    bigquery_datasets = ["travelist","lancertoa","reserved", "olx","phlov"]
+    bigquery_datasets = ["travelist","lancerto","reserved", "olx","phlov"]
     iam_roles         = {}
     repositories = {
       "basic-images" = {
@@ -118,6 +126,15 @@ gcp_projects = {
         description = "Repozytorium obrazów Docker uruchamianych w środowisku Cloud Run."
       }
     }
+    cloud_sql = {
+      name    = "salestube-postgres"
+      db_name = "salestube"
+      tier    = "db-perf-optimized-N-8"
+      ipv4_enabled = true
+    }
+
+
+
   },
 
 

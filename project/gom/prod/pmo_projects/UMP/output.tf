@@ -13,6 +13,7 @@ output "created_projects" {
       iam_bindings      = project.iam_bindings
       repositories      = project.repositories
       service_accounts  = project.service_accounts
+      cloud_sql         = try(one(values(project.cloud_sql)), null)
     }
   }
 }
